@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PlayerOptions>
+    <Graphics fullscreen="1" width="1280" height="768"/>
+    <Sound PlayMusic="1" musicVolume="100" PlaySFX="1" sfxVolume="100"/>
+</PlayerOptions>
