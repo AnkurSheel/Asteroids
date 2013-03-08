@@ -6,3 +6,4 @@ bin/
 *.suo
 *.exp
 *.ilk
+ipch/
