@@ -1,0 +1,8 @@
+Obj/
+Debug/
+bin/
+*.user
+*.*sdf
+*.suo
+*.exp
+*.ilk
