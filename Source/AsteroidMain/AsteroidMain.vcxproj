@@ -113,8 +113,8 @@
     <ClInclude Include="src\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\bin\AsteroidRetail.ini" />
-    <None Include="..\..\Debug\AsteroidDebug.ini" />
+    <None Include="..\..\bin\OptionsRetail.ini" />
+    <None Include="..\..\Debug\OptionsDebug.ini" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
