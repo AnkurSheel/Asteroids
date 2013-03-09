@@ -1,9 +1,11 @@
 Obj/
-Debug/
-bin/
+[Dd]ebug*/
+[Bb]in/
 *.user
 *.*sdf
 *.suo
 *.exp
 *.ilk
 ipch/
+log.*
+*.bak
