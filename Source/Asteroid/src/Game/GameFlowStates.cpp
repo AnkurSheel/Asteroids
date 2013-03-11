@@ -487,6 +487,7 @@ void cStateHelpScreen::VOnEnter(cGame *pGame)
 		def.textColor = cColor::VIOLET;
 		def.strText = "Press W to Move forward\nPress S to Move Backward";
 		def.strText += "\nPress A to Rotate Left\nPress D to Rotate Right";
+		def.strText += "\nPress Space to Fire";
 		def.fTextHeight = 30;
 		def.vPosition = cVector2(0, 170);
 		IBaseControl * pHelpTextLabelControl = IBaseControl::CreateLabelControl(def);
