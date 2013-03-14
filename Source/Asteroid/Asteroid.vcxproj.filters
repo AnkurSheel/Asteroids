@@ -24,6 +24,7 @@
       <Filter>State</Filter>
     </ClCompile>
     <ClCompile Include="src\AsteroidsScore.cpp" />
+    <ClCompile Include="src\AsteroidsHighScoreTable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\enums.h" />
@@ -55,6 +56,7 @@
       <Filter>State</Filter>
     </ClInclude>
     <ClInclude Include="src\AsteroidsScore.h" />
+    <ClInclude Include="src\AsteroidsHighScoreTable.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameElements">
