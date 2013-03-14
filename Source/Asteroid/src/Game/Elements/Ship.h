@@ -17,6 +17,8 @@ namespace Utilities
 	class ITimer;
 }
 
+class cAsteroidsScore;
+
 class cShip 
 	: public cAsteroidGameElement
 {
@@ -51,7 +53,7 @@ private:
 	int						m_iActiveBullets;
 	float					m_fBulletCountDown;
 	float					m_fLastBulletTime;
-	int						m_iScore;
+	cAsteroidsScore *		m_pScore;
 	int						m_iLives;
 	bool					m_bInvincible;
 	float					m_fShieldDuration;			

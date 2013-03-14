@@ -15,6 +15,7 @@
 #include "Asteroid.h"
 #include "Bullet.h"
 #include "timer.hxx"
+#include "AsteroidsScore.h"
 
 using namespace Base;
 using namespace GameBase;
@@ -27,7 +28,7 @@ cShip::cShip()
 , m_iActiveBullets(0)
 , m_fBulletCountDown(0.0f)
 , m_fLastBulletTime(0.0f)
-, m_iScore(0)
+, m_pScore(NULL)
 , m_iLives(0)
 , m_iMaxLives(0)
 , m_bInvincible(false)
@@ -42,6 +43,7 @@ cShip::cShip()
 // *****************************************************************************
 cShip::~cShip()
 {
+	Cleanup();
 }
 
 // *****************************************************************************
@@ -61,7 +63,8 @@ void cShip::VInitialize(const cGameElementDef & def )
 	m_fShieldDuration = 5.0f;
 	m_fShipVisibilityUpdateTime = 0.15f;
 
-	m_iScore = 0;
+	m_pScore = DEBUG_NEW cAsteroidsScore();
+
 	m_iLives = m_iMaxLives;
 	VSetActive(true);
 
@@ -175,6 +178,7 @@ void cShip::Cleanup()
 {
 	m_Bullets.clear();
 	SAFE_DELETE(m_pTimer);
+	SAFE_DELETE(m_pScore);
 	cAsteroidGameElement::Cleanup();
 }
 
@@ -202,12 +206,13 @@ void cShip::BulletDestroyed(cBullet * const pBullet)
 // *****************************************************************************
 void cShip::IncrementScore(const int iValue)
 {
-	m_iScore += iValue;
+	m_pScore->UpdateScore(iValue);
 }
+
 // *****************************************************************************
 int cShip::GetScore() const
 {
-	return m_iScore;
+	return m_pScore->GetScore();
 }
 
 // *****************************************************************************
