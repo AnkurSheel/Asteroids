@@ -14,6 +14,7 @@
 #include "CollisionChecker.hxx"
 #include "Asteroid.h"
 #include "Bullet.h"
+#include "timer.hxx"
 
 using namespace Base;
 using namespace GameBase;
@@ -32,6 +33,9 @@ cShip::cShip()
 , m_bInvincible(false)
 , m_fShieldDuration(0.f)
 , m_fShieldDeactivateTime(0.0f)
+, m_pTimer(NULL)
+, m_fLastShipVisibilityUpdateTime(0.0f)
+, m_fShipVisibilityUpdateTime(0.0f)
 {
 }
 
@@ -43,6 +47,8 @@ cShip::~cShip()
 // *****************************************************************************
 void cShip::VInitialize(const cGameElementDef & def )
 {
+	m_pTimer = ITimer::CreateTimer();
+
 	cAsteroidGameElement::VInitialize(def);
 	m_fAcceleration = 0.2f;
 	m_fDragFactor = 0.02f;
@@ -53,6 +59,7 @@ void cShip::VInitialize(const cGameElementDef & def )
 	m_fBulletCountDown = 0.3f;
 	m_iMaxLives = 3;
 	m_fShieldDuration = 5.0f;
+	m_fShipVisibilityUpdateTime = 0.15f;
 
 	m_iScore = 0;
 	m_iLives = m_iMaxLives;
@@ -84,6 +91,20 @@ void cShip::OnUpdate(float fElapsedTime)
 	{
 		m_fShieldDeactivateTime = 0.0f;
 		m_bInvincible = false;
+		m_pTimer->VStopTimer();
+		m_bVisible = true;
+	}
+
+	if(m_bInvincible)
+	{
+		m_pTimer->VOnUpdate();	
+		m_fLastShipVisibilityUpdateTime += m_pTimer->VGetDeltaTime();
+	
+		if (m_fLastShipVisibilityUpdateTime >= m_fShipVisibilityUpdateTime)
+		{
+			m_fLastShipVisibilityUpdateTime = 0.0f;
+			m_bVisible = !m_bVisible;
+		}
 	}
 }
 
@@ -221,4 +242,6 @@ void cShip::SetInvincible()
 {
 	m_bInvincible = true;
 	m_fShieldDeactivateTime = m_pGame->GetRunningTime() + m_fShieldDuration;
+	m_pTimer->VStartTimer();
+	m_fLastShipVisibilityUpdateTime = 0.0f;
 }

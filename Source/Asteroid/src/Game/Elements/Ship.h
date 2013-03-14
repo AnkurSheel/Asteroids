@@ -12,6 +12,11 @@
 
 #include "AsteroidGameElement.h"
 
+namespace Utilities
+{
+	class ITimer;
+}
+
 class cShip 
 	: public cAsteroidGameElement
 {
@@ -40,16 +45,19 @@ public:
 	void SetInvincible();
 
 private:
-	int			m_iMaxNumberOfBullets;
-	int			m_iMaxLives;
-	BulletList	m_Bullets;
-	int			m_iActiveBullets;
-	float		m_fBulletCountDown;
-	float		m_fLastBulletTime;
-	int			m_iScore;
-	int			m_iLives;
-	bool		m_bInvincible;
-	float		m_fShieldDuration;			
-	float		m_fShieldDeactivateTime;
+	int						m_iMaxNumberOfBullets;
+	int						m_iMaxLives;
+	BulletList				m_Bullets;
+	int						m_iActiveBullets;
+	float					m_fBulletCountDown;
+	float					m_fLastBulletTime;
+	int						m_iScore;
+	int						m_iLives;
+	bool					m_bInvincible;
+	float					m_fShieldDuration;			
+	float					m_fShieldDeactivateTime;
+	Utilities::ITimer *		m_pTimer;
+	float					m_fLastShipVisibilityUpdateTime;
+	float					m_fShipVisibilityUpdateTime;
 };
 #endif // Ship_h__

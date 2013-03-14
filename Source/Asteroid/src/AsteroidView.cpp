@@ -105,7 +105,7 @@ void cAsteroidView::VRenderPrivate()
 	m_pGame->VGetGameElements(pGameElements);
 	for (iter = pGameElements.begin(); iter != pGameElements.end(); iter++)
 	{
-		(*iter)->Render(m_pCamera);
+		(*iter)->VOnRender(m_pCamera);
 	}
 	//for (int i=0; i<m_pGame->PGE_TOTAL; i++)
 	//{
