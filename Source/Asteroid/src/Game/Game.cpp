@@ -258,7 +258,7 @@ void cGame::NextLevel()
 	m_iCurrentLevel++;	
 	m_pHUDScreen->VRemoveChildControl("NewWaveLabel");
 	cGameElementDef asteroidDef;
-	asteroidDef.strModelName= "cube";
+	asteroidDef.strModelName= "asteroid";
 	asteroidDef.vPosition= cVector3(-100.0f, -100.0f, -100.0f);
 	m_iNumberOfAsteroids = m_iCurrentLevel + 2;
 	for(int i=0; i < m_iNumberOfAsteroids; i++)

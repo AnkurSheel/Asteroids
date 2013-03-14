@@ -88,7 +88,7 @@ void cAsteroid::Hit()
 	{
 		m_iCurrentSize++;
 		cGameElementDef asteroidDef;
-		asteroidDef.strModelName= "cube";
+		asteroidDef.strModelName= "asteroid";
 
 		for (int i=0 ;i<2;i++)
 		{
