@@ -24,6 +24,8 @@
 #include "GameOptions.h"
 #include "CollisionChecker.hxx"
 #include "Elements\Bullet.h"
+#include "HighScoreTable.h"
+#include "Score.h"
 
 using namespace Graphics;
 using namespace Base;
@@ -1014,10 +1016,38 @@ void cStateHighScoreScreen::VOnEnter(cGame *pGame)
 		IBaseControl * pTitleLabelControl = IBaseControl::CreateLabelControl(def);
 		pHighScoreScreen->VAddChildControl(shared_ptr<IBaseControl>(pTitleLabelControl));
 
+		cHighScoreTable::ScoreSet highScores = pGame->m_pHighScoreTable->GetScores();
+		cHighScoreTable::ScoreSet::iterator iter;
+		int i = 0;
+		int currentPosY = 220.0f;
+		for(iter = highScores.begin(); iter != highScores.end(); iter++)
+		{
+			shared_ptr<cScore> pScore = (*iter);
+			
+			def.strControlName = cString(100, "Name%d", i);
+			def.strFont = "licorice"; 
+			def.textColor = cColor::BLUE;
+			def.strText = pScore->GetPlayerName();
+			def.fTextHeight = 30;
+			def.vPosition = cVector2(0.0f, currentPosY);
+			def.vSize = cVector2(200.0f, 30.0f);
+			IBaseControl * pNameControl = IBaseControl::CreateLabelControl(def);
+			pHighScoreScreen->VAddChildControl(shared_ptr<IBaseControl>(pNameControl));
+
+			def.strControlName = cString(100, "Score%d", i);
+			def.strText = cString(50, "%d",pScore->GetScore());
+			def.vPosition = cVector2(250.0f, currentPosY);
+			IBaseControl * pScoreControl = IBaseControl::CreateLabelControl(def);
+			pHighScoreScreen->VAddChildControl(shared_ptr<IBaseControl>(pScoreControl));
+
+			i++;
+			currentPosY += 40;
+		}
+
 		cButtonControlDef buttonDef;
 		buttonDef.strControlName = "btnBack";
 		buttonDef.bAutoSize = true;
-		buttonDef.vPosition = cVector2(0, 480);
+		buttonDef.vPosition = cVector2(0, 650);
 		buttonDef.strDefaultImage = "buttonDefault.png";
 		buttonDef.strPressedImage = "buttonPressed.png";
 		buttonDef.labelControlDef.strFont = "licorice";
@@ -1044,7 +1074,7 @@ void cStateHighScoreScreen::VOnExit()
 {
 	if (m_pOwner->m_pHumanView->m_pAppWindowControl != NULL)
 	{
-		m_pOwner->m_pHumanView->m_pAppWindowControl->VRemoveChildControl("HelpScreen");
+		m_pOwner->m_pHumanView->m_pAppWindowControl->VRemoveChildControl("HighScoreScreen");
 	}
 }
 
