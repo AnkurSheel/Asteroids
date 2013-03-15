@@ -17,6 +17,7 @@ namespace GameBase
 {
 	class cHumanView;
 	class cGameElementDef;
+	class cHighScoreTable;
 }
 
 namespace Utilities
@@ -67,17 +68,18 @@ private:
 	void NextLevel();
 
 private:
-	int									m_iDisplayHeight ;		// the display height of the window
-	int									m_iDisplayWidth ;		// the display width of the window
-	GameElementList						m_pGameElements;		// ptr to the gameelements
-	cGameFlowStateMachine *				m_pStateMachine;
-	Base::cVector3						m_vScreenTopLeftPos;
-	Base::cVector3						m_vScreenBottomRightPos;
-	Utilities::IRandomGenerator *		m_pRandomGenerator;
-	shared_ptr<Graphics::IBaseControl>	m_pHUDScreen;
-	bool								m_bGameOver;
-	int									m_iCurrentLevel;
-	int									m_iNumberOfAsteroids;
+	int										m_iDisplayHeight ;		// the display height of the window
+	int										m_iDisplayWidth ;		// the display width of the window
+	GameElementList							m_pGameElements;		// ptr to the gameelements
+	cGameFlowStateMachine *					m_pStateMachine;
+	Base::cVector3							m_vScreenTopLeftPos;
+	Base::cVector3							m_vScreenBottomRightPos;
+	Utilities::IRandomGenerator *			m_pRandomGenerator;
+	shared_ptr<Graphics::IBaseControl>		m_pHUDScreen;
+	bool									m_bGameOver;
+	int										m_iCurrentLevel;
+	int										m_iNumberOfAsteroids;
+	GameBase::cHighScoreTable *				m_pHighScoreTable;
 
 private:
 	friend class cStateTitleScreen;

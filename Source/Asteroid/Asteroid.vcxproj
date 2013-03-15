@@ -105,8 +105,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\AsteroidsHighScoreTable.h" />
-    <ClInclude Include="src\AsteroidsScore.h" />
     <ClInclude Include="src\enums.h" />
     <ClInclude Include="src\Game\Elements\Asteroid.h" />
     <ClInclude Include="src\Game\Elements\AsteroidGameElement.h" />
@@ -123,8 +121,6 @@
     <ClInclude Include="src\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\AsteroidsHighScoreTable.cpp" />
-    <ClCompile Include="src\AsteroidsScore.cpp" />
     <ClCompile Include="src\Game\Elements\Asteroid.cpp" />
     <ClCompile Include="src\Game\Elements\AsteroidGameElement.cpp" />
     <ClCompile Include="src\Game\Elements\Bullet.cpp" />

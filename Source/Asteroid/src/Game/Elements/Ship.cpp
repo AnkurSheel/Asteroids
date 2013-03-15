@@ -15,7 +15,7 @@
 #include "Asteroid.h"
 #include "Bullet.h"
 #include "timer.hxx"
-#include "AsteroidsScore.h"
+#include "Score.h"
 
 using namespace Base;
 using namespace GameBase;
@@ -63,7 +63,7 @@ void cShip::VInitialize(const cGameElementDef & def )
 	m_fShieldDuration = 5.0f;
 	m_fShipVisibilityUpdateTime = 0.15f;
 
-	m_pScore = DEBUG_NEW cAsteroidsScore();
+	m_pScore = DEBUG_NEW cScore();
 
 	m_iLives = m_iMaxLives;
 	VSetActive(true);

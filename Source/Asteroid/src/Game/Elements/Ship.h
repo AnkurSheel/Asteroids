@@ -17,7 +17,10 @@ namespace Utilities
 	class ITimer;
 }
 
-class cAsteroidsScore;
+namespace GameBase
+{
+	class cScore;
+}
 
 class cShip 
 	: public cAsteroidGameElement
@@ -53,7 +56,7 @@ private:
 	int						m_iActiveBullets;
 	float					m_fBulletCountDown;
 	float					m_fLastBulletTime;
-	cAsteroidsScore *		m_pScore;
+	GameBase::cScore *		m_pScore;
 	int						m_iLives;
 	bool					m_bInvincible;
 	float					m_fShieldDuration;			

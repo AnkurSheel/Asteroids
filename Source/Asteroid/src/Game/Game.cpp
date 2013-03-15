@@ -23,6 +23,7 @@
 #include "MessageDispatchManager.hxx"
 #include "BaseControl.hxx"
 #include "RandomGenerator.hxx"
+#include "HighScoreTable.h"
 
 using namespace MySound;
 using namespace Graphics;
@@ -38,6 +39,7 @@ cGame::cGame(const cString strName)
 , m_bGameOver(false)
 , m_iCurrentLevel(0)
 , m_iNumberOfAsteroids(0)
+, m_pHighScoreTable(NULL)
 {
 }
 
@@ -66,6 +68,9 @@ void cGame::VOnInitialization(const HINSTANCE & hInstance, const int nCmdShow,
 	{
 		Log_Write_L1(ILogger::LT_DEBUG, cString(100, "Random Generator created with seed %u", m_pRandomGenerator->GetRandomSeed()));
 	}
+	
+	m_pHighScoreTable = DEBUG_NEW cHighScoreTable("Scores", 10);
+	m_pHighScoreTable->Initialize();
 	OnRestart();
 }
 
@@ -96,6 +101,7 @@ void cGame::VCleanup()
 	SAFE_DELETE(m_pRandomGenerator);
 	SAFE_DELETE(m_pStateMachine);
 	m_pHUDScreen.reset();
+	SAFE_DELETE(m_pHighScoreTable);
 	cBaseApp::VCleanup();
 }
 
