@@ -61,6 +61,7 @@ private:
 	void SinglePlayerButtonPressed(const Graphics::stUIEventCallbackParam& params);
 	void HelpButtonPressed(const Graphics::stUIEventCallbackParam& params);
 	void OptionsButtonPressed(const Graphics::stUIEventCallbackParam& params);
+	void HighScoreButtonPressed(const Graphics::stUIEventCallbackParam& params);
 	void QuitButtonPressed(const Graphics::stUIEventCallbackParam& params);
 
 private:
@@ -143,4 +144,21 @@ private:
 private:
 	Graphics::IBaseControl * m_pPauseScreen;
 };
+
+class cStateHighScoreScreen 
+	: public IGameFlowStates
+{
+public:
+	virtual ~cStateHighScoreScreen();
+	static cStateHighScoreScreen *Instance();
+	virtual void VOnEnter(cGame *pGame);
+	virtual void VOnUpdate();
+	virtual void VOnExit();
+	virtual bool VOnMessage(const AI::Telegram &msg);
+
+private:
+	cStateHighScoreScreen();
+	void BackButtonPressed(const Graphics::stUIEventCallbackParam& params);
+};
+
 #endif // GameFlowStates_h__

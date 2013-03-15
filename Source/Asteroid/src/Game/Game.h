@@ -88,6 +88,7 @@ private:
 	friend class cStateHelpScreen;
 	friend class cStateOptionsScreen;
 	friend class cStatePauseScreen;
+	friend class cStateHighScoreScreen;
 	friend class cAsteroidView;
 };
 #endif // Game_h__

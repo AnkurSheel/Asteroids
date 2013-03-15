@@ -172,10 +172,20 @@ void cStateMenuScreen::VOnEnter(cGame *pGame)
 		UIEventCallBackFn callbackHelpBtn;
 		callbackHelpBtn = bind(&cStateMenuScreen::HelpButtonPressed, this, _1);
 		pHelpButton->VRegisterCallBack(UIET_BTNRELEASED, callbackHelpBtn);
+		
+		buttonDef.strControlName = "btnHighScore";
+		buttonDef.labelControlDef.strText = "High Score";
+		buttonDef.vPosition = cVector2(412, 570);
+
+		IBaseControl * pHighScoreButton = IBaseControl::CreateButtonControl(buttonDef);
+		m_pMenuScreen->VAddChildControl(shared_ptr<IBaseControl>(pHighScoreButton));
+		UIEventCallBackFn callbackHighScoreBtn = bind(&cStateMenuScreen::HighScoreButtonPressed, this, _1);
+		pHighScoreButton->VRegisterCallBack(UIET_BTNRELEASED, callbackHighScoreBtn);
+
 
 		buttonDef.strControlName = "btnQuit";
 		buttonDef.labelControlDef.strText = "Quit";
-		buttonDef.vPosition = cVector2(412, 570);
+		buttonDef.vPosition = cVector2(412, 670);
 
 		IBaseControl * pQuitButton = IBaseControl::CreateButtonControl(buttonDef);
 		m_pMenuScreen->VAddChildControl(shared_ptr<IBaseControl>(pQuitButton));
@@ -259,6 +269,15 @@ void cStateMenuScreen::OptionsButtonPressed(const stUIEventCallbackParam & param
 	if(m_pOwner != NULL && m_pOwner->m_pStateMachine != NULL)
 	{
 		m_pOwner->m_pStateMachine->RequestPushState(cStateOptionsScreen::Instance());
+	}
+}
+
+// *****************************************************************************
+void cStateMenuScreen::HighScoreButtonPressed(const stUIEventCallbackParam & params)
+{
+	if(m_pOwner != NULL && m_pOwner->m_pStateMachine != NULL)
+	{
+		m_pOwner->m_pStateMachine->RequestPushState(cStateHighScoreScreen::Instance());
 	}
 }
 
@@ -949,4 +968,102 @@ void cStatePauseScreen::HelpButtonPressed(const Graphics::stUIEventCallbackParam
 void cStatePauseScreen::QuitButtonPressed(const Graphics::stUIEventCallbackParam& params)
 {
 	PostQuitMessage(0);
+}
+
+
+// *****************************************************************************
+cStateHighScoreScreen::cStateHighScoreScreen()
+{
+}
+
+// *****************************************************************************
+cStateHighScoreScreen::~cStateHighScoreScreen()
+{
+}
+
+// *****************************************************************************
+cStateHighScoreScreen* cStateHighScoreScreen::Instance()
+{
+	static cStateHighScoreScreen instance;
+	return &instance;
+}
+
+// *****************************************************************************
+void cStateHighScoreScreen::VOnEnter(cGame *pGame)
+{
+	IGameFlowStates::VOnEnter(pGame);
+	if (pGame->m_pHumanView->m_pAppWindowControl != NULL)
+	{
+		cWindowControlDef highScoreDef;
+		highScoreDef.strControlName = "HighScoreScreen";
+		highScoreDef.wType = cWindowControlDef::WT_STANDARD;
+		highScoreDef.vPosition = cVector2(0, 0);
+		highScoreDef.strBGImageFile = "WindowBG.png";
+		highScoreDef.vSize = pGame->m_pHumanView->m_pAppWindowControl->VGetSize();
+		IBaseControl * pHighScoreScreen = IBaseControl::CreateWindowControl(highScoreDef);
+		pGame->m_pHumanView->m_pAppWindowControl->VAddChildControl(shared_ptr<IBaseControl>(pHighScoreScreen));
+		pGame->m_pHumanView->m_pAppWindowControl->VMoveToFront(pHighScoreScreen);
+
+		cLabelControlDef def;
+		def.strControlName = "LabelHighScore";
+		def.strFont = "JokerMan"; 
+		def.textColor = cColor::RED;
+		def.strText = "High Scores";
+		def.fTextHeight = 200;
+		def.vPosition = cVector2(257.0f, 0.0f);
+		IBaseControl * pTitleLabelControl = IBaseControl::CreateLabelControl(def);
+		pHighScoreScreen->VAddChildControl(shared_ptr<IBaseControl>(pTitleLabelControl));
+
+		cButtonControlDef buttonDef;
+		buttonDef.strControlName = "btnBack";
+		buttonDef.bAutoSize = true;
+		buttonDef.vPosition = cVector2(0, 480);
+		buttonDef.strDefaultImage = "buttonDefault.png";
+		buttonDef.strPressedImage = "buttonPressed.png";
+		buttonDef.labelControlDef.strFont = "licorice";
+		buttonDef.labelControlDef.strText = "Back";
+		buttonDef.labelControlDef.textColor = cColor::BLUE;
+		buttonDef.labelControlDef.fTextHeight = 50;
+
+		IBaseControl * pBackButton = IBaseControl::CreateButtonControl(buttonDef);
+		pHighScoreScreen->VAddChildControl(shared_ptr<IBaseControl>(pBackButton));
+		UIEventCallBackFn callBackBtn;
+		callBackBtn = bind(&cStateHighScoreScreen::BackButtonPressed, this, _1);
+		pBackButton->VRegisterCallBack(UIET_BTNRELEASED, callBackBtn);
+	}
+}
+
+// *****************************************************************************
+void cStateHighScoreScreen::VOnUpdate()
+{
+
+}
+
+// *****************************************************************************
+void cStateHighScoreScreen::VOnExit()
+{
+	if (m_pOwner->m_pHumanView->m_pAppWindowControl != NULL)
+	{
+		m_pOwner->m_pHumanView->m_pAppWindowControl->VRemoveChildControl("HelpScreen");
+	}
+}
+
+// *****************************************************************************
+bool cStateHighScoreScreen::VOnMessage(const Telegram &msg)
+{
+	if(msg.Msg == MSG_ESCAPE_PRESSED)
+	{
+		stUIEventCallbackParam params;
+		BackButtonPressed(params);
+		return true;
+	}
+	return false;
+}
+
+void cStateHighScoreScreen::BackButtonPressed(const stUIEventCallbackParam & params)
+{
+	if(m_pOwner != NULL && m_pOwner->m_pStateMachine != NULL)
+	{
+		m_pOwner->m_pStateMachine->RequestPopState();
+	}
 }
