@@ -235,15 +235,6 @@ void cGame::ShipHitByAsteroid()
 		}
 		if (pShip->GetLives() == 0)
 		{
-			cLabelControlDef labelDef;
-			labelDef.strControlName = "GameOverLabel";
-			labelDef.strFont = "JokerMan"; // forte
-			labelDef.textColor = cColor::TURQUOISE;
-			labelDef.strText = "Game Over";
-			labelDef.fTextHeight = 200;
-			labelDef.vPosition = cVector2(m_iDisplayWidth/4.0f, m_iDisplayHeight/2.0f - 100.0f);
-			IBaseControl * pGameOverLabel = IBaseControl::CreateLabelControl(labelDef);
-			m_pHUDScreen->VAddChildControl(shared_ptr<IBaseControl>(pGameOverLabel));
 			m_bGameOver = true;
 		}
 	}

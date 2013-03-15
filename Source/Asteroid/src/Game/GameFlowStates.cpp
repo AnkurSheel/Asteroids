@@ -26,6 +26,7 @@
 #include "Elements\Bullet.h"
 #include "HighScoreTable.h"
 #include "Score.h"
+#include "optional.h"
 
 using namespace Graphics;
 using namespace Base;
@@ -388,8 +389,35 @@ void cStatePlayGame::VOnUpdate()
 	}
 	if (m_pOwner->m_bGameOver)
 	{
-		IMessageDispatchManager::GetInstance()->VDispatchMessage(5.0f, m_pOwner->VGetID(),
-			m_pOwner->VGetID(), MSG_GAME_OVER, NULL);
+		cShip * pShip = (m_pOwner->m_pGameElements.front())->CastToShip();
+		if(pShip != NULL)
+		{
+			cLabelControlDef labelDef;
+			labelDef.strControlName = "GameOverLabel";
+			labelDef.strFont = "JokerMan"; // forte
+			labelDef.textColor = cColor::TURQUOISE;
+			labelDef.fTextHeight = 200;
+			labelDef.vPosition = cVector2(m_pOwner->m_iDisplayWidth/4.0f, m_pOwner->m_iDisplayHeight/2.0f - 100.0f);
+
+			int iScore = pShip->GetScore();
+			tOptional<int> iPos = m_pOwner->m_pHighScoreTable->IsHighScore(iScore);
+			if(iPos.IsValid())
+			{
+				labelDef.strText = "High Score";
+				IMessageDispatchManager::GetInstance()->VDispatchMessage(5.0f, m_pOwner->VGetID(),
+					m_pOwner->VGetID(), MSG_HIGH_SCORE, NULL);
+			}
+			else
+			{
+				labelDef.strText = "Game Over";
+				IMessageDispatchManager::GetInstance()->VDispatchMessage(5.0f, m_pOwner->VGetID(),
+					m_pOwner->VGetID(), MSG_GAME_OVER, NULL);
+			}
+			IBaseControl * pGameOverLabel = IBaseControl::CreateLabelControl(labelDef);
+			m_pOwner->m_pHUDScreen->VAddChildControl(shared_ptr<IBaseControl>(pGameOverLabel));
+		}
+
+
 	}
 }
 // *****************************************************************************
@@ -412,16 +440,20 @@ bool cStatePlayGame::VOnMessage(const Telegram &msg)
 		return true;
 	}
 	else if(msg.Msg == MSG_NEXT_LEVEL)
-		{
-			m_pOwner->NextLevel();
-			return true;
-		}
+	{
+		m_pOwner->NextLevel();
+		return true;
+	}
 	else if(msg.Msg == MSG_ESCAPE_PRESSED)
 	{
 		if(m_pOwner != NULL && m_pOwner->m_pStateMachine != NULL)
 		{
 			m_pOwner->m_pStateMachine->RequestPushState(cStatePauseScreen::Instance());
 		}
+		return true;
+	}
+	else if(msg.Msg == MSG_HIGH_SCORE)
+	{
 		return true;
 	}
 	return false;
