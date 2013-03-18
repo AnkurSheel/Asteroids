@@ -98,10 +98,10 @@ void cGame::VCleanup()
 {
 	m_pGameElements.clear();
 
-	SAFE_DELETE(m_pRandomGenerator);
-	SAFE_DELETE(m_pStateMachine);
+	SafeDelete(&m_pRandomGenerator);
+	SafeDelete(&m_pStateMachine);
 	m_pHUDScreen.reset();
-	SAFE_DELETE(m_pHighScoreTable);
+	SafeDelete(&m_pHighScoreTable);
 	cBaseApp::VCleanup();
 }
 

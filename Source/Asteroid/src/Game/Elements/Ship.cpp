@@ -177,8 +177,8 @@ void cShip::OnRestart()
 void cShip::Cleanup()
 {
 	m_Bullets.clear();
-	SAFE_DELETE(m_pTimer);
-	SAFE_DELETE(m_pScore);
+	SafeDelete(&m_pTimer);
+	SafeDelete(&m_pScore);
 	cAsteroidGameElement::Cleanup();
 }
 

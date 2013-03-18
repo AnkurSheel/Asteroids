@@ -161,4 +161,28 @@ private:
 	void BackButtonPressed(const Graphics::stUIEventCallbackParam& params);
 };
 
+class cStateEnterNameScreen 
+	: public IGameFlowStates
+{
+public:
+	virtual ~cStateEnterNameScreen();
+	static cStateEnterNameScreen *Instance();
+	virtual void VOnEnter(cGame * pGame);
+	virtual void VOnUpdate();
+	virtual void VOnExit();
+	virtual bool VOnMessage( const AI::Telegram & msg );
+	void SetNewScorePos(int val);
+	void SetNewScore(int val);
+
+private:
+	cStateEnterNameScreen();
+	void BackButtonPressed(const Graphics::stUIEventCallbackParam& params);
+	void NameEntered(const Graphics::stUIEventCallbackParam& params);
+	
+private:
+	int				m_iNewScorePos;
+	int				m_iNewScore;
+	Base::cString	m_strPlayerName;
+};
+
 #endif // GameFlowStates_h__

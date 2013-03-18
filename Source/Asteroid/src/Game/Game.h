@@ -89,6 +89,7 @@ private:
 	friend class cStateOptionsScreen;
 	friend class cStatePauseScreen;
 	friend class cStateHighScoreScreen;
+	friend class cStateEnterNameScreen;
 	friend class cAsteroidView;
 };
 #endif // Game_h__

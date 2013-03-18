@@ -17,6 +17,6 @@ enum Messages
 	MSG_ESCAPE_PRESSED,
 	MSG_GAME_OVER,
 	MSG_NEXT_LEVEL,
-	MSG_HIGH_SCORE,
+	MSG_NEW_HIGH_SCORE,
 };
 #endif // Messages_h__

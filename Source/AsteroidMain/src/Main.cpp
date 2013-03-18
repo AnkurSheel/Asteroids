@@ -64,5 +64,5 @@ void CheckForMemoryLeaks()
 // ***************************************************************
 void Cleanup() 
 {
-	SAFE_DELETE(pGame);
+	SafeDelete(&pGame);
 }
