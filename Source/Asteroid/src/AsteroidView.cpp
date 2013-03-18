@@ -36,8 +36,12 @@ void cAsteroidView::VOnCreateDevice(IBaseApp * pGame,
 								 const HWND & hWnd)
 {
 	cHumanView::VOnCreateDevice(pGame, hInst, hWnd);
-	m_pCamera->VSetPosition(cVector3(0.0f, 0.0f, -20.0f));
 	m_pGame = dynamic_cast<cGame *>(pGame);
+	if (m_pCamera)
+	{
+		m_pCamera->VSetPosition(cVector3(0.0f, 0.0f, -20.0f));
+		m_pCamera->VUpdate();
+	}
 }
 
 // *****************************************************************************
