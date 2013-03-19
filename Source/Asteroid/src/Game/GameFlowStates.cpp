@@ -1204,7 +1204,7 @@ void cStateEnterNameScreen::VOnEnter(cGame * pGame)
 		int i = 0;
 		int currentPosY = 220.0f;
 
-		for(iter = highScores.begin(); iter != lastiter; iter++)
+		for(iter = highScores.begin(); iter != highScores.end(); iter++)
 		{
 			if (i == m_iNewScorePos)
 			{
@@ -1223,6 +1223,11 @@ void cStateEnterNameScreen::VOnEnter(cGame * pGame)
 				
 				currentPosY += 40;
 			}
+			if (iter == lastiter)
+			{
+				continue;
+			}
+
 			shared_ptr<cScore> pScore = (*iter);
 
 			def.strControlName = cString(100, "Name%d", i);
