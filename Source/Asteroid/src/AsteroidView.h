@@ -31,7 +31,7 @@ public:
 	void VOnUpdate(const TICK tickCurrent, const float fElapsedTime);
 	void VRenderPrivate();
 	bool VOnMsgProc( const Base::AppMsg & msg );	
-	void OnSinglePlayerSelected(cGame * pGame);
+	void OnPlaySelected(cGame * const pGame);
 
 private:
 	shared_ptr<ShipHandler>		m_ShipHandler;

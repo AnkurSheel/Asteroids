@@ -93,12 +93,13 @@ bool cAsteroidView::VOnMsgProc( const Base::AppMsg & msg )
 }
 
 // *****************************************************************************
-void cAsteroidView::OnSinglePlayerSelected( cGame * pGame)
+void cAsteroidView::OnPlaySelected(cGame * const pGame)
 {
 	m_ShipHandler = shared_ptr<ShipHandler>(DEBUG_NEW ShipHandler());
 	ShipHandler::ShipInputCallBackFn callbackShip;
 	callbackShip = bind(&cGame::MoveShip, pGame, _1);
 	m_ShipHandler->RegisterCallBack(callbackShip);
+	m_ShipHandler->SetGameControls(pGame->GetGameControls());
 }
 
 // *******************************************************************************************

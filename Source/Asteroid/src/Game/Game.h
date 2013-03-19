@@ -17,7 +17,6 @@ namespace GameBase
 {
 	class cHumanView;
 	class cGameElementDef;
-	class cHighScoreTable;
 }
 
 namespace Utilities
@@ -47,7 +46,7 @@ public:
 	void VGetGameElements(GameElementList & gameElements) const;
 	Base::cVector3 VGetScreenTopLeftPos() const;
 	Base::cVector3 VGetScreenBottomRightPos() const;
-	void MoveShip(const ShipActions eShipActions);
+	void MoveShip(const ASTEROIDCONTROLS eShipActions);
 	Utilities::IRandomGenerator * const GetRandomGenerator() const;
 	void AddGameElement(shared_ptr<cAsteroidGameElement> const pGameElement);
 	void AddAsteroid(const GameBase::cGameElementDef & asteroidDef, const int iSize);
@@ -79,7 +78,6 @@ private:
 	bool									m_bGameOver;
 	int										m_iCurrentLevel;
 	int										m_iNumberOfAsteroids;
-	GameBase::cHighScoreTable *				m_pHighScoreTable;
 
 private:
 	friend class cStateTitleScreen;

@@ -9,13 +9,13 @@ enum GAMESOUNDS
 	GS_TOTAL
 };
 
-enum ShipActions
+enum ASTEROIDCONTROLS
 {
-	SA_MOVE_FWD,
-	SA_MOVE_BK,
-	SA_ROTATE_LEFT,
-	SA_ROTATE_RIGHT,
-	SA_FIRE,
+	AC_MOVE_FWD,
+	AC_MOVE_BK,
+	AC_ROTATE_LEFT,
+	AC_ROTATE_RIGHT,
+	AC_FIRE,
 };
 
 #endif // enums_h__

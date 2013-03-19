@@ -10,18 +10,22 @@
 #ifndef ShipHandler_h__
 #define ShipHandler_h__
 
-
 #include "KeyboardHandler.hxx"
 namespace Graphics
 {
 	struct AppMsg;
 }
 
+namespace GameBase
+{
+	class cGameControls;
+}
+
 class ShipHandler 
 	: public Graphics::IKeyboardHandler
 {
 public:
-	typedef function<void (ShipActions)> ShipInputCallBackFn;
+	typedef function<void (ASTEROIDCONTROLS)> ShipInputCallBackFn;
 
 public:
 	ShipHandler();
@@ -33,9 +37,12 @@ public:
 	void OnUpdate();
 	void RegisterCallBack(ShipInputCallBackFn callback);
 	void UnregisterCallBack();
+	void SetGameControls(GameBase::cGameControls * pGameControls);
+
 private:
-	BYTE					m_bKey[KEYBOARD_KEYS];			// Which keys are up and down
-	ShipInputCallBackFn		m_pfnCallBack;
+	BYTE						m_bKey[KEYBOARD_KEYS];			// Which keys are up and down
+	ShipInputCallBackFn			m_pfnCallBack;
+	GameBase::cGameControls * m_pGameControls;
 
 };
 #endif // ShipHandler_h__

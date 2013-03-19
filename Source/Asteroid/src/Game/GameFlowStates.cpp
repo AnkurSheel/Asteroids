@@ -139,24 +139,23 @@ void cStateMenuScreen::VOnEnter(cGame *pGame)
 
 		cButtonControlDef buttonDef;
 		buttonDef.strControlName = "btnSinglePlayer";
-		buttonDef.bAutoSize = true;
 		buttonDef.vPosition = cVector2(412, 270);
 		buttonDef.strDefaultImage = "buttonDefault.png";
 		buttonDef.strPressedImage = "buttonPressed.png";
 		buttonDef.labelControlDef.strFont = "licorice";
-		buttonDef.labelControlDef.strText = "Single Player";
+		buttonDef.labelControlDef.strText = "Play";
 		buttonDef.labelControlDef.textColor = cColor::BLUE;
 		buttonDef.labelControlDef.fTextHeight = 70;
+		buttonDef.vSize = cVector2(350.0f, 70.0f);
 
-		IBaseControl * pSinglePlayerButton = IBaseControl::CreateButtonControl(buttonDef);
-		m_pMenuScreen->VAddChildControl(shared_ptr<IBaseControl>(pSinglePlayerButton));
-		UIEventCallBackFn callbackSinglePlayerBtn;
-		callbackSinglePlayerBtn = bind(&cStateMenuScreen::SinglePlayerButtonPressed, this, _1);
-		pSinglePlayerButton->VRegisterCallBack(UIET_BTNRELEASED, callbackSinglePlayerBtn);
+		IBaseControl * pPlayButton = IBaseControl::CreateButtonControl(buttonDef);
+		m_pMenuScreen->VAddChildControl(shared_ptr<IBaseControl>(pPlayButton));
+		UIEventCallBackFn callbackPlayBtn;
+		callbackPlayBtn = bind(&cStateMenuScreen::PlayButtonPressed, this, _1);
+		pPlayButton->VRegisterCallBack(UIET_BTNRELEASED, callbackPlayBtn);
 
 		buttonDef.strControlName = "btnOption";
-		buttonDef.bAutoSize = false;
-		buttonDef.vSize = pSinglePlayerButton->VGetSize();
+		buttonDef.vSize = pPlayButton->VGetSize();
 		buttonDef.labelControlDef.strText = "Options";
 		buttonDef.vPosition = cVector2(412, 370);
 
@@ -245,11 +244,11 @@ void cStateMenuScreen::VOnResume()
 }
 
 // *****************************************************************************
-void cStateMenuScreen::SinglePlayerButtonPressed(const stUIEventCallbackParam & params)
+void cStateMenuScreen::PlayButtonPressed(const stUIEventCallbackParam & params)
 {
 	cAsteroidView * pView = dynamic_cast<cAsteroidView *>(m_pOwner->m_pHumanView);
 	if(pView)
-		pView->OnSinglePlayerSelected(m_pOwner);
+		pView->OnPlaySelected(m_pOwner);
 
 	if (m_pOwner && m_pOwner->m_pStateMachine)
 	{

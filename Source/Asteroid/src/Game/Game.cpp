@@ -24,6 +24,7 @@
 #include "BaseControl.hxx"
 #include "RandomGenerator.hxx"
 #include "HighScoreTable.h"
+#include "AsteroidControls.h"
 
 using namespace MySound;
 using namespace Graphics;
@@ -39,7 +40,6 @@ cGame::cGame(const cString strName)
 , m_bGameOver(false)
 , m_iCurrentLevel(0)
 , m_iNumberOfAsteroids(0)
-, m_pHighScoreTable(NULL)
 {
 }
 
@@ -71,6 +71,9 @@ void cGame::VOnInitialization(const HINSTANCE & hInstance, const int nCmdShow,
 	
 	m_pHighScoreTable = DEBUG_NEW cHighScoreTable("Scores", 10);
 	m_pHighScoreTable->Initialize();
+
+	m_pGameControls = DEBUG_NEW cAsteroidControls("");
+	m_pGameControls->Load();
 	OnRestart();
 }
 
@@ -105,34 +108,34 @@ void cGame::VCleanup()
 	cBaseApp::VCleanup();
 }
 
-void cGame::MoveShip(const ShipActions eShipActions)
+void cGame::MoveShip(const ASTEROIDCONTROLS eShipActions)
 {
 	cShip * pShip = (m_pGameElements.front())->CastToShip();
 	if(pShip)
 	{
 		switch(eShipActions)
 		{
-			case SA_MOVE_FWD:
+			case AC_MOVE_FWD:
 			{
 				pShip->MoveForward(m_pGameTimer->VGetDeltaTime());
 				break;
 			}
-			case SA_MOVE_BK:
+			case AC_MOVE_BK:
 			{
 				pShip->MoveBack(m_pGameTimer->VGetDeltaTime());
 				break;
 			}
-			case SA_ROTATE_LEFT:
+			case AC_ROTATE_LEFT:
 			{
 				pShip->RotateLeft(m_pGameTimer->VGetDeltaTime());
 				break;
 			}
-			case SA_ROTATE_RIGHT:
+			case AC_ROTATE_RIGHT:
 			{
 				pShip->RotateRight(m_pGameTimer->VGetDeltaTime());
 				break;
 			}
-			case SA_FIRE:
+			case AC_FIRE:
 			{
 				pShip->Fire();
 				break;

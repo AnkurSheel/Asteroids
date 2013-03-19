@@ -58,7 +58,7 @@ public:
 
 private:
 	cStateMenuScreen();
-	void SinglePlayerButtonPressed(const Graphics::stUIEventCallbackParam& params);
+	void PlayButtonPressed(const Graphics::stUIEventCallbackParam& params);
 	void HelpButtonPressed(const Graphics::stUIEventCallbackParam& params);
 	void OptionsButtonPressed(const Graphics::stUIEventCallbackParam& params);
 	void HighScoreButtonPressed(const Graphics::stUIEventCallbackParam& params);

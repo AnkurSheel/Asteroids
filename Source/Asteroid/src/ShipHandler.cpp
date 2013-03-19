@@ -10,12 +10,15 @@
 #include "stdafx.h"
 #include "ShipHandler.h"
 #include "Structures.h"
+#include "AsteroidControls.h"
 
 using namespace Graphics;
+using namespace GameBase;
 
 // ***************************************************************
 ShipHandler::ShipHandler()
 : m_pfnCallBack(NULL)
+, m_pGameControls(NULL)
 {
 	memset(m_bKey, 0, sizeof(m_bKey));
 }
@@ -51,43 +54,48 @@ bool ShipHandler::VOnCharPress(const unsigned int iCharID)
 // ***************************************************************
 void ShipHandler::OnUpdate()
 {
-	if (m_bKey['S'])
+	if (m_pGameControls == NULL)
+	{
+		return;
+	}
+
+	if (m_bKey[(*m_pGameControls)[AC_MOVE_BK]])
 	{
 		if (m_pfnCallBack)
 		{
-			m_pfnCallBack(SA_MOVE_BK);
+			m_pfnCallBack(AC_MOVE_BK);
 		}
 	}
 
-	if (m_bKey['W'])
+	if (m_bKey[(*m_pGameControls)[AC_MOVE_FWD]])
 	{
 		if (m_pfnCallBack)
 		{
-			m_pfnCallBack(SA_MOVE_FWD);
+			m_pfnCallBack(AC_MOVE_FWD);
 		}
 	}
 
-	if (m_bKey['A'])
+	if (m_bKey[(*m_pGameControls)[AC_ROTATE_LEFT]])
 	{
 		if (m_pfnCallBack)
 		{
-			m_pfnCallBack(SA_ROTATE_LEFT);
+			m_pfnCallBack(AC_ROTATE_LEFT);
 		}
 	}
 
-	if (m_bKey['D'])
+	if (m_bKey[(*m_pGameControls)[AC_ROTATE_RIGHT]])
 	{
 		if (m_pfnCallBack)
 		{
-			m_pfnCallBack(SA_ROTATE_RIGHT);
+			m_pfnCallBack(AC_ROTATE_RIGHT);
 		}
 	}
 
-	if (m_bKey[VK_SPACE])
+	if (m_bKey[(*m_pGameControls)[AC_FIRE]])
 	{
 		if (m_pfnCallBack)
 		{
-			m_pfnCallBack(SA_FIRE);
+			m_pfnCallBack(AC_FIRE);
 		}
 	}
 }
@@ -108,4 +116,10 @@ void ShipHandler::UnregisterCallBack()
 void ShipHandler::VLockKey( const BYTE c, const bool bLock )
 {
 
+}
+
+// *****************************************************************************
+void ShipHandler::SetGameControls(cGameControls * pGameControls)
+{
+	m_pGameControls = pGameControls;
 }

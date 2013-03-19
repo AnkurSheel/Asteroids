@@ -8,7 +8,7 @@
 // 
 // *****************************************************************************
 #include "stdafx.h"
-#include "cAsteroidControls.h"
+#include "AsteroidControls.h"
 
 using namespace Base;
 using namespace GameBase;
@@ -30,9 +30,9 @@ void cAsteroidControls::VSetDefaults()
 {
 	m_keyMap.clear();
 
-	m_keyMap[SA_MOVE_FWD] = stGameControl("Move Ship Forward", 'W');
-	m_keyMap[SA_MOVE_BK] = stGameControl("Move Ship BackWard", 'S');
-	m_keyMap[SA_ROTATE_LEFT] = stGameControl("Rotate Ship Left", 'A');
-	m_keyMap[SA_ROTATE_RIGHT] = stGameControl("Rotate Ship Right", 'D');
-	m_keyMap[SA_FIRE] = stGameControl("Fire", VK_SPACE);
+	m_keyMap[AC_MOVE_FWD] = stGameControl("Move Ship Forward", 'W');
+	m_keyMap[AC_MOVE_BK] = stGameControl("Move Ship BackWard", 'S');
+	m_keyMap[AC_ROTATE_LEFT] = stGameControl("Rotate Ship Left", 'A');
+	m_keyMap[AC_ROTATE_RIGHT] = stGameControl("Rotate Ship Right", 'D');
+	m_keyMap[AC_FIRE] = stGameControl("Fire", VK_SPACE);
 }
