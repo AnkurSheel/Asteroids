@@ -1058,7 +1058,7 @@ void cStateHighScoreScreen::VOnEnter(cGame *pGame)
 		cHighScoreTable::ScoreSet highScores = pGame->m_pHighScoreTable->GetScores();
 		cHighScoreTable::ScoreSet::iterator iter;
 		int i = 0;
-		int currentPosY = 220.0f;
+		int currentPosY = 220;
 		for(iter = highScores.begin(); iter != highScores.end(); iter++)
 		{
 			shared_ptr<cScore> pScore = (*iter);

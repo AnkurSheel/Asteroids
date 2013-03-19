@@ -23,6 +23,7 @@
     <ClCompile Include="src\Game\GameFlowStates.cpp">
       <Filter>State</Filter>
     </ClCompile>
+    <ClCompile Include="src\cAsteroidControls.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\enums.h" />
@@ -53,6 +54,7 @@
     <ClInclude Include="src\Messages.h">
       <Filter>State</Filter>
     </ClInclude>
+    <ClInclude Include="src\cAsteroidControls.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameElements">
