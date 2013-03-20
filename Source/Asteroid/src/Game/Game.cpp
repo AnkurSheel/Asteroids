@@ -105,6 +105,7 @@ void cGame::VCleanup()
 	SafeDelete(&m_pStateMachine);
 	m_pHUDScreen.reset();
 	SafeDelete(&m_pHighScoreTable);
+	SafeDelete(&m_pGameControls);
 	cBaseApp::VCleanup();
 }
 

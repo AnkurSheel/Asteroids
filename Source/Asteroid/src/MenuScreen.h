@@ -32,7 +32,7 @@ public:
 private:
 	cStateMenuScreen();
 	void PlayButtonPressed(const Graphics::stUIEventCallbackParam& params);
-	void HelpButtonPressed(const Graphics::stUIEventCallbackParam& params);
+	void ControlsButtonPressed(const Graphics::stUIEventCallbackParam& params);
 	void OptionsButtonPressed(const Graphics::stUIEventCallbackParam& params);
 	void HighScoreButtonPressed(const Graphics::stUIEventCallbackParam& params);
 	void QuitButtonPressed(const Graphics::stUIEventCallbackParam& params);

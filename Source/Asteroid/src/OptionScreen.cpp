@@ -12,7 +12,6 @@
 #include "FSM\Telegram.h"
 #include "Game\GameFlowStateMachine.h"
 #include "GameDirectories.h"
-#include "RedefineControlsScreen.h"
 
 using namespace Base;
 using namespace Graphics;
@@ -179,16 +178,6 @@ void cStateOptionsScreen::VOnEnter(cGame *pGame)
 		buttonDef.labelControlDef.strFont = "licorice";
 		buttonDef.labelControlDef.textColor = cColor::BLUE;
 		buttonDef.labelControlDef.fTextHeight = 50;
-
-		buttonDef.strControlName = "btnControls";
-		buttonDef.labelControlDef.strText = "Redefine Controls";
-		buttonDef.vPosition = cVector2(660, 230);
-
-		IBaseControl * pRedefineControlsButton = IBaseControl::CreateButtonControl(buttonDef);
-		m_pOptionsScreen->VAddChildControl(shared_ptr<IBaseControl>(pRedefineControlsButton));
-		UIEventCallBackFn callbackRedefineControlsBtn = bind(&cStateOptionsScreen::ControlsButtonPressed, this, _1);
-		pRedefineControlsButton->VRegisterCallBack(UIET_BTNRELEASED, callbackRedefineControlsBtn);
-
 		buttonDef.strControlName = "btnQuit";
 		buttonDef.vPosition = cVector2(0, 550);
 		buttonDef.labelControlDef.strText = "Back";
@@ -257,13 +246,4 @@ void cStateOptionsScreen::SFXScrollbarChanged(const Graphics::stUIEventCallbackP
 	cGameOptions::GameOptions().iSFXVolume = params.iThumbPos * 5;
 	pMusicTextBox->VSetText(cString(20, "%d", cGameOptions::GameOptions().iSFXVolume));
 	m_pOwner->m_pHumanView->SetSFXVolume();
-}
-
-// *****************************************************************************
-void cStateOptionsScreen::ControlsButtonPressed(const stUIEventCallbackParam & params)
-{
-	if(m_pOwner != NULL && m_pOwner->m_pStateMachine != NULL)
-	{
-		m_pOwner->m_pStateMachine->RequestPushState(cStateRedefineControlsScreen::Instance());
-	}
 }

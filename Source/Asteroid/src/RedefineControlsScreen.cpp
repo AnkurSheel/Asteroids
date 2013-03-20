@@ -24,6 +24,7 @@ using namespace Utilities;
 
 // *****************************************************************************
 cStateRedefineControlsScreen::cStateRedefineControlsScreen()
+	: m_pRedefineControlsScreen(NULL)
 {
 
 }
@@ -31,7 +32,6 @@ cStateRedefineControlsScreen::cStateRedefineControlsScreen()
 // *****************************************************************************
 cStateRedefineControlsScreen::~cStateRedefineControlsScreen()
 {
-
 }
 
 // *****************************************************************************
@@ -53,9 +53,9 @@ void cStateRedefineControlsScreen::VOnEnter(cGame * pGame)
 		redefineControlsDef.vPosition = cVector2(0, 0);
 		redefineControlsDef.strBGImageFile = "WindowBG.png";
 		redefineControlsDef.vSize = pGame->m_pHumanView->m_pAppWindowControl->VGetSize();
-		IBaseControl * pRedefineControlsScreen = IBaseControl::CreateWindowControl(redefineControlsDef);
-		pGame->m_pHumanView->m_pAppWindowControl->VAddChildControl(shared_ptr<IBaseControl>(pRedefineControlsScreen));
-		pGame->m_pHumanView->m_pAppWindowControl->VMoveToFront(pRedefineControlsScreen);
+		m_pRedefineControlsScreen = IBaseControl::CreateWindowControl(redefineControlsDef);
+		pGame->m_pHumanView->m_pAppWindowControl->VAddChildControl(shared_ptr<IBaseControl>(m_pRedefineControlsScreen));
+		pGame->m_pHumanView->m_pAppWindowControl->VMoveToFront(m_pRedefineControlsScreen);
 
 		cLabelControlDef def;
 		def.strControlName = "LabelRedefineControls";
@@ -65,7 +65,7 @@ void cStateRedefineControlsScreen::VOnEnter(cGame * pGame)
 		def.fTextHeight = 200;
 		def.vPosition = cVector2(257.0f, 0.0f);
 		IBaseControl * pTitleLabelControl = IBaseControl::CreateLabelControl(def);
-		pRedefineControlsScreen->VAddChildControl(shared_ptr<IBaseControl>(pTitleLabelControl));
+		m_pRedefineControlsScreen->VAddChildControl(shared_ptr<IBaseControl>(pTitleLabelControl));
 
 		def.bAutoSize = false;
 		def.strBGImageFile = "TextBox.png";
@@ -96,27 +96,26 @@ void cStateRedefineControlsScreen::VOnEnter(cGame * pGame)
 			def.strText = gameControl.m_strDisplayName;
 			def.vPosition = cVector2(0.0f, currentPosY);
 			IBaseControl * pNameControl = IBaseControl::CreateLabelControl(def);
-			pRedefineControlsScreen->VAddChildControl(shared_ptr<IBaseControl>(pNameControl));
+			m_pRedefineControlsScreen->VAddChildControl(shared_ptr<IBaseControl>(pNameControl));
 
 			buttonDef.strControlName = cString(100, "Key%d", i);
 			buttonDef.labelControlDef.strText = pGame->m_pGameControls->GetKeyName(gameControl.m_uiKeyCode);
 			buttonDef.vPosition = cVector2(300.0f, currentPosY);
 			IBaseControl * pKeyControl = IBaseControl::CreateButtonControl(buttonDef);
-			pRedefineControlsScreen->VAddChildControl(shared_ptr<IBaseControl>(pKeyControl));
-			
+			m_pRedefineControlsScreen->VAddChildControl(shared_ptr<IBaseControl>(pKeyControl));
+
 			unsigned int id = iter->first;
-			UIEventCallBackFn btnClick = [pKeyControl, this, id] (const stUIEventCallbackParam & params)
+			m_pKeyControls.push_back(pKeyControl);
+			UIEventCallBackFn btnClick = [this, pKeyControl, id] (const stUIEventCallbackParam & params)
 			{
 				m_icurrentlyEditingID = id;
-				pKeyControl->VSetText("Press Any Key");
+				m_pKeyControls[m_icurrentlyEditingID]->VSetText("Press Any Key");
 			};
 			pKeyControl->VRegisterCallBack(UIET_BTNRELEASED, btnClick);
 
-			UIEventCallBackFn  btnKeyDown = [pKeyControl, this, &gameControl] (const stUIEventCallbackParam & params)
+			UIEventCallBackFn  btnKeyDown = [this] (const stUIEventCallbackParam & params)
 			{
-				pKeyControl->VSetText(m_pOwner->m_pGameControls->GetKeyName(params.uiCharId));
-				Log_Write_L1(ILogger::LT_DEBUG, cString(10, "%d", m_icurrentlyEditingID));
-				//keyMap[m_icurrentlyEditingID].m_uiKeyCode =iCode;
+				this->OnKeyChanged(params.uiCharId);
 			};
 			pKeyControl->VRegisterCallBack(UIET_ONKEYDOWN, btnKeyDown);
 
@@ -124,17 +123,37 @@ void cStateRedefineControlsScreen::VOnEnter(cGame * pGame)
 			currentPosY += 40;
 		}
 
-		buttonDef.strControlName = "btnBack";
-		buttonDef.bAutoSize = true;
-		buttonDef.vPosition = cVector2(0, 650);
-		buttonDef.labelControlDef.strText = "Back";
+		buttonDef.strControlName = "btnOk";
+		buttonDef.vPosition = cVector2(100, 500);
+		buttonDef.vSize = cVector2(120.0f, 50.0f);
+		buttonDef.labelControlDef.strText = "OK";
 		buttonDef.labelControlDef.fTextHeight = 50;
 
-		IBaseControl * pBackButton = IBaseControl::CreateButtonControl(buttonDef);
-		pRedefineControlsScreen->VAddChildControl(shared_ptr<IBaseControl>(pBackButton));
-		UIEventCallBackFn callBackBtn;
-		callBackBtn = bind(&cStateRedefineControlsScreen::BackButtonPressed, this, _1);
-		pBackButton->VRegisterCallBack(UIET_BTNRELEASED, callBackBtn);
+		IBaseControl * pOkBtn = IBaseControl::CreateButtonControl(buttonDef);
+		m_pRedefineControlsScreen->VAddChildControl(shared_ptr<IBaseControl>(pOkBtn));
+		UIEventCallBackFn cbOkBtn;
+		cbOkBtn = bind(&cStateRedefineControlsScreen::OKButtonPressed, this, _1);
+		pOkBtn->VRegisterCallBack(UIET_BTNRELEASED, cbOkBtn);
+
+		buttonDef.strControlName = "btnReset";
+		buttonDef.vPosition = cVector2(250, 500);
+		buttonDef.labelControlDef.strText = "Reset";
+
+		IBaseControl * pResetBtn = IBaseControl::CreateButtonControl(buttonDef);
+		m_pRedefineControlsScreen->VAddChildControl(shared_ptr<IBaseControl>(pResetBtn));
+		UIEventCallBackFn cbResetBtn;
+		cbResetBtn = bind(&cStateRedefineControlsScreen::ResetButtonPressed, this, _1);
+		pResetBtn->VRegisterCallBack(UIET_BTNRELEASED, cbResetBtn);
+
+		buttonDef.strControlName = "btnCancel";
+		buttonDef.vPosition = cVector2(400, 500);
+		buttonDef.labelControlDef.strText = "Cancel";
+
+		IBaseControl * pCancelBtn = IBaseControl::CreateButtonControl(buttonDef);
+		m_pRedefineControlsScreen->VAddChildControl(shared_ptr<IBaseControl>(pCancelBtn));
+		UIEventCallBackFn cbCancelBtn;
+		cbCancelBtn = bind(&cStateRedefineControlsScreen::CancelButtonPressed, this, _1);
+		pCancelBtn->VRegisterCallBack(UIET_BTNRELEASED, cbCancelBtn);
 	}
 }
 
@@ -159,17 +178,58 @@ bool cStateRedefineControlsScreen::VOnMessage(const AI::Telegram & msg)
 	if(msg.Msg == MSG_ESCAPE_PRESSED)
 	{
 		stUIEventCallbackParam params;
-		BackButtonPressed(params);
+		OKButtonPressed(params);
 		return true;
 	}
 	return false;
 }
 
 // *****************************************************************************
-void cStateRedefineControlsScreen::BackButtonPressed(const stUIEventCallbackParam & params)
+void cStateRedefineControlsScreen::OKButtonPressed(const stUIEventCallbackParam & params)
+{
+	if(m_pOwner != NULL && m_pOwner->m_pStateMachine != NULL)
+	{
+		m_pOwner->m_pGameControls->Save();
+		m_pOwner->m_pStateMachine->RequestPopState();
+	}
+}
+
+// *****************************************************************************
+void cStateRedefineControlsScreen::CancelButtonPressed(const Graphics::stUIEventCallbackParam& params)
 {
 	if(m_pOwner != NULL && m_pOwner->m_pStateMachine != NULL)
 	{
 		m_pOwner->m_pStateMachine->RequestPopState();
+	}
+}
+
+// *****************************************************************************
+void cStateRedefineControlsScreen::ResetButtonPressed(const Graphics::stUIEventCallbackParam& params)
+{
+	if (m_pOwner != NULL && m_pOwner->m_pGameControls != NULL)
+	{
+		m_pOwner->m_pGameControls->VSetDefaults();
+		SetAllKeyControlsText();
+	}
+}
+
+// *****************************************************************************
+void cStateRedefineControlsScreen::OnKeyChanged(unsigned int uiCharId)
+{
+	if (m_pOwner != NULL && m_pOwner->m_pGameControls != NULL)
+	{
+		m_pOwner->m_pGameControls->SetKey(m_icurrentlyEditingID, uiCharId);
+		SetAllKeyControlsText();
+	}
+}
+
+// *****************************************************************************
+void cStateRedefineControlsScreen::SetAllKeyControlsText()
+{
+	cGameControls::KeyMapping keyMap = m_pOwner->m_pGameControls->GetKeyMap();
+	cGameControls::KeyMapping::iterator iter;
+	for(int i=0; i<m_pKeyControls.size(); i++)
+	{
+		m_pKeyControls[i]->VSetText(m_pOwner->m_pGameControls->GetKeyName(keyMap[i].m_uiKeyCode));
 	}
 }

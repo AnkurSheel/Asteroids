@@ -63,7 +63,8 @@ void cStateHelpScreen::VOnEnter(cGame *pGame)
 		def.strControlName = "labelHelpText";
 		def.strFont = "licorice"; 
 		def.textColor = cColor::VIOLET;
-		def.strText = "Press W to Move forward\nPress S to Move Backward";
+		def.strText = "Default Keys\n";
+		def.strText += "\nPress W to Move forward\nPress S to Move Backward";
 		def.strText += "\nPress A to Rotate Left\nPress D to Rotate Right";
 		def.strText += "\nPress Space to Fire";
 		def.fTextHeight = 30;

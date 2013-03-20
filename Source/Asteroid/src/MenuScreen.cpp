@@ -16,6 +16,7 @@
 #include "HelpScreen.h"
 #include "OptionScreen.h"
 #include "HighScoreScreen.h"
+#include "RedefineControlsScreen.h"
 
 using namespace Base;
 using namespace Graphics;
@@ -83,15 +84,14 @@ void cStateMenuScreen::VOnEnter(cGame *pGame)
 		callbackOptionsBtn = bind(&cStateMenuScreen::OptionsButtonPressed, this, _1);
 		pOptionsButton->VRegisterCallBack(UIET_BTNRELEASED, callbackOptionsBtn);
 
-		buttonDef.strControlName = "btnHelp";
-		buttonDef.labelControlDef.strText = "Help";
+		buttonDef.strControlName = "btnControls";
+		buttonDef.labelControlDef.strText = "Controls";
 		buttonDef.vPosition = cVector2(412, 470);
 
-		IBaseControl * pHelpButton = IBaseControl::CreateButtonControl(buttonDef);
-		m_pMenuScreen->VAddChildControl(shared_ptr<IBaseControl>(pHelpButton));
-		UIEventCallBackFn callbackHelpBtn;
-		callbackHelpBtn = bind(&cStateMenuScreen::HelpButtonPressed, this, _1);
-		pHelpButton->VRegisterCallBack(UIET_BTNRELEASED, callbackHelpBtn);
+		IBaseControl * pRedefineControlsButton = IBaseControl::CreateButtonControl(buttonDef);
+		m_pMenuScreen->VAddChildControl(shared_ptr<IBaseControl>(pRedefineControlsButton));
+		UIEventCallBackFn callbackRedefineControlsBtn = bind(&cStateMenuScreen::ControlsButtonPressed, this, _1);
+		pRedefineControlsButton->VRegisterCallBack(UIET_BTNRELEASED, callbackRedefineControlsBtn);
 
 		buttonDef.strControlName = "btnHighScore";
 		buttonDef.labelControlDef.strText = "High Score";
@@ -174,11 +174,11 @@ void cStateMenuScreen::PlayButtonPressed(const stUIEventCallbackParam & params)
 }
 
 // *****************************************************************************
-void cStateMenuScreen::HelpButtonPressed(const stUIEventCallbackParam & params)
+void cStateMenuScreen::ControlsButtonPressed(const stUIEventCallbackParam & params)
 {
 	if(m_pOwner != NULL && m_pOwner->m_pStateMachine != NULL)
 	{
-		m_pOwner->m_pStateMachine->RequestPushState(cStateHelpScreen::Instance());
+		m_pOwner->m_pStateMachine->RequestPushState(cStateRedefineControlsScreen::Instance());
 	}
 }
 

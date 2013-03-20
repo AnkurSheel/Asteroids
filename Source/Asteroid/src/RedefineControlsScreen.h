@@ -11,6 +11,7 @@
 namespace Graphics
 {
 	struct stUIEventCallbackParam;
+	class IBaseControl;
 }
 
 class cStateRedefineControlsScreen 
@@ -26,11 +27,15 @@ public:
 
 private:
 	cStateRedefineControlsScreen();
-	void BackButtonPressed(const Graphics::stUIEventCallbackParam& params);
+	void OKButtonPressed(const Graphics::stUIEventCallbackParam& params);
+	void CancelButtonPressed(const Graphics::stUIEventCallbackParam& params);
+	void ResetButtonPressed(const Graphics::stUIEventCallbackParam& params);
+	void OnKeyChanged(unsigned int uiCharId);
+	void SetAllKeyControlsText();
 
 private:
-	unsigned int m_icurrentlyEditingID;
-
-
+	Graphics::IBaseControl *	m_pRedefineControlsScreen;
+	unsigned int				m_icurrentlyEditingID;
+	std::vector<Graphics::IBaseControl *> m_pKeyControls;
 };
 #endif // RedefineControlsScreen_h__
