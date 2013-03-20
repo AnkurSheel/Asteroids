@@ -9,8 +9,6 @@
 #include "HumanView.h"
 #include "ControlStructures.h"
 #include "BaseControl.hxx"
-#include "Color.h"
-#include "MessageDispatchManager.hxx"
 #include "FSM\Telegram.h"
 #include "Game\GameFlowStateMachine.h"
 #include "AsteroidView.h"
@@ -103,7 +101,6 @@ void cStateMenuScreen::VOnEnter(cGame *pGame)
 		m_pMenuScreen->VAddChildControl(shared_ptr<IBaseControl>(pHighScoreButton));
 		UIEventCallBackFn callbackHighScoreBtn = bind(&cStateMenuScreen::HighScoreButtonPressed, this, _1);
 		pHighScoreButton->VRegisterCallBack(UIET_BTNRELEASED, callbackHighScoreBtn);
-
 
 		buttonDef.strControlName = "btnQuit";
 		buttonDef.labelControlDef.strText = "Quit";

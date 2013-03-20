@@ -32,6 +32,7 @@ private:
 	void BackButtonPressed(const Graphics::stUIEventCallbackParam& params);
 	void MusicScrollbarChanged(const Graphics::stUIEventCallbackParam& params);
 	void SFXScrollbarChanged(const Graphics::stUIEventCallbackParam& params);
+	void ControlsButtonPressed(const Graphics::stUIEventCallbackParam& params);
 
 private:
 	Graphics::IBaseControl * m_pOptionsScreen;

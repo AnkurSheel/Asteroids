@@ -10,7 +10,6 @@
 
 namespace Graphics
 {
-	class IBaseControl;
 	struct stUIEventCallbackParam;
 }
 

@@ -12,6 +12,7 @@ namespace Graphics
 {
 	class IBaseControl;
 }
+
 class cGame;
 
 class cStateTitleScreen 

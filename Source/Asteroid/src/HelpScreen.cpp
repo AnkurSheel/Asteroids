@@ -9,8 +9,6 @@
 #include "HumanView.h"
 #include "ControlStructures.h"
 #include "BaseControl.hxx"
-#include "Color.h"
-#include "MessageDispatchManager.hxx"
 #include "FSM\Telegram.h"
 #include "Game\GameFlowStateMachine.h"
 

@@ -1,4 +1,3 @@
-#include "Game\GameFlowStates.h"
 // *****************************************************************************
 //  RedefineControlsScreen   version:  1.0   Ankur Sheel  date: 2013/03/20
 // *****************************************************************************
@@ -8,6 +7,11 @@
 #define RedefineControlsScreen_h__
 
 #include "Game/GameFlowStates.h"
+
+namespace Graphics
+{
+	struct stUIEventCallbackParam;
+}
 
 class cStateRedefineControlsScreen 
 	: public IGameFlowStates
@@ -22,6 +26,6 @@ public:
 
 private:
 	cStateRedefineControlsScreen();
-
+	void BackButtonPressed(const Graphics::stUIEventCallbackParam& params);
 };
 #endif // RedefineControlsScreen_h__
