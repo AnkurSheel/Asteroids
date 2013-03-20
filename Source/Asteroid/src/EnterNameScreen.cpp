@@ -97,7 +97,7 @@ void cStateEnterNameScreen::VOnEnter(cGame * pGame)
 				pEnterNameScreen->VAddChildControl(shared_ptr<IBaseControl>(pNameControl));
 				UIEventCallBackFn callBackTextBox;
 				callBackTextBox = bind(&cStateEnterNameScreen::NameEntered, this, _1);
-				pNameControl->VRegisterCallBack(UIET_TBCHANGED, callBackTextBox);
+				pNameControl->VRegisterCallBack(UIET_FOCUSLOST, callBackTextBox);
 
 				def.strControlName = cString(100, "Score%d", i);
 				def.strText = cString(50, "%d",m_iNewScore);

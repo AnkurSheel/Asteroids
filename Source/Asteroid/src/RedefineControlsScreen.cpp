@@ -14,6 +14,7 @@
 #include "FSM\Telegram.h"
 #include "Game\GameFlowStateMachine.h"
 #include "GameControls.h"
+#include "Optional.h"
 
 using namespace Base;
 using namespace Graphics;
@@ -102,13 +103,22 @@ void cStateRedefineControlsScreen::VOnEnter(cGame * pGame)
 			buttonDef.vPosition = cVector2(300.0f, currentPosY);
 			IBaseControl * pKeyControl = IBaseControl::CreateButtonControl(buttonDef);
 			pRedefineControlsScreen->VAddChildControl(shared_ptr<IBaseControl>(pKeyControl));
-
-			UIEventCallBackFn callBackBtn = [pKeyControl] (const stUIEventCallbackParam & params)
+			
+			unsigned int id = iter->first;
+			UIEventCallBackFn btnClick = [pKeyControl, this, id] (const stUIEventCallbackParam & params)
 			{
-				Log_Write_L1(ILogger::LT_DEBUG, pKeyControl->VGetControlName());
+				m_icurrentlyEditingID = id;
 				pKeyControl->VSetText("Press Any Key");
 			};
-			pKeyControl->VRegisterCallBack(UIET_BTNRELEASED, callBackBtn);
+			pKeyControl->VRegisterCallBack(UIET_BTNRELEASED, btnClick);
+
+			UIEventCallBackFn  btnKeyDown = [pKeyControl, this, &gameControl] (const stUIEventCallbackParam & params)
+			{
+				pKeyControl->VSetText(m_pOwner->m_pGameControls->GetKeyName(params.uiCharId));
+				Log_Write_L1(ILogger::LT_DEBUG, cString(10, "%d", m_icurrentlyEditingID));
+				//keyMap[m_icurrentlyEditingID].m_uiKeyCode =iCode;
+			};
+			pKeyControl->VRegisterCallBack(UIET_ONKEYDOWN, btnKeyDown);
 
 			i++;
 			currentPosY += 40;

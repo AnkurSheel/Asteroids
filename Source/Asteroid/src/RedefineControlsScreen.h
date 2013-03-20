@@ -27,5 +27,10 @@ public:
 private:
 	cStateRedefineControlsScreen();
 	void BackButtonPressed(const Graphics::stUIEventCallbackParam& params);
+
+private:
+	unsigned int m_icurrentlyEditingID;
+
+
 };
 #endif // RedefineControlsScreen_h__
