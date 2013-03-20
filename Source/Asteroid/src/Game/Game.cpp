@@ -13,7 +13,6 @@
 #include "Elements/Ship.h"
 #include "Elements/Asteroid.h"
 #include "GameFlowStateMachine.h"
-#include "GameFlowStates.h"
 #include "AsteroidView.h"
 #include "Timer.hxx"
 #include "ProcessManager.hxx"
@@ -25,6 +24,7 @@
 #include "RandomGenerator.hxx"
 #include "HighScoreTable.h"
 #include "AsteroidControls.h"
+#include "TitleScreen.h"
 
 using namespace MySound;
 using namespace Graphics;

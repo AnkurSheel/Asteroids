@@ -9,7 +9,7 @@
 // ***************************************************************
 #include "stdafx.h"
 #include "GameFlowStateMachine.h"
-#include "GameFlowStates.h"
+#include "Game/GameFlowStates.h"
 
 cGameFlowStateMachine::cGameFlowStateMachine(cGame *pGame)
 : cStateMachine<cGame>(pGame)

@@ -20,10 +20,34 @@
     <ClCompile Include="src\Game\GameFlowStateMachine.cpp">
       <Filter>State</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\GameFlowStates.cpp">
+    <ClCompile Include="src\AsteroidControls.cpp" />
+    <ClCompile Include="src\TitleScreen.cpp">
       <Filter>State</Filter>
     </ClCompile>
-    <ClCompile Include="src\AsteroidControls.cpp" />
+    <ClCompile Include="src\MenuScreen.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StatePlayGame.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HelpScreen.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OptionScreen.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PauseScreen.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HighScoreScreen.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EnterNameScreen.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RedefineControlsScreen.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\enums.h" />
@@ -45,9 +69,6 @@
     <ClInclude Include="src\Game\Elements\Ship.h">
       <Filter>GameElements</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\GameFlowStates.h">
-      <Filter>State</Filter>
-    </ClInclude>
     <ClInclude Include="src\Game\GameFlowStateMachine.h">
       <Filter>State</Filter>
     </ClInclude>
@@ -55,6 +76,36 @@
       <Filter>State</Filter>
     </ClInclude>
     <ClInclude Include="src\AsteroidControls.h" />
+    <ClInclude Include="src\TitleScreen.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MenuScreen.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="src\StatePlayGame.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="src\HelpScreen.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OptionScreen.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PauseScreen.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="src\HighScoreScreen.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EnterNameScreen.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RedefineControlsScreen.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\GameFlowStates.h">
+      <Filter>State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameElements">
