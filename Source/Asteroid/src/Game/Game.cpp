@@ -66,7 +66,7 @@ void cGame::VOnInitialization(const HINSTANCE & hInstance, const int nCmdShow,
 	m_pRandomGenerator = IRandomGenerator::CreateRandomGenerator();
 	if (m_pRandomGenerator)
 	{
-		Log_Write_L1(ILogger::LT_DEBUG, cString(100, "Random Generator created with seed %u", m_pRandomGenerator->GetRandomSeed()));
+		Log_Write(ILogger::LT_DEBUG, 1, cString(100, "Random Generator created with seed %u", m_pRandomGenerator->GetRandomSeed()));
 	}
 	
 	m_pHighScoreTable = DEBUG_NEW cHighScoreTable("Scores", 10);
