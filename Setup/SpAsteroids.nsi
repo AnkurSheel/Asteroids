@@ -1,14 +1,8 @@
-############################################################################################
-#      NSIS Installation Script created by NSIS Quick Setup Script Generator v1.09.18
-#               Entirely Edited with NullSoft Scriptable Installation System                
-#              by Vlasis K. Barkas aka Red Wine red_wine@freemail.gr Sep 2006               
-############################################################################################
-
 !define APP_NAME "SpAsteroids"
 !define COMP_NAME "BGI"
 !define WEB_SITE "http://www.gamedev.net/blog/1369-speedruns-journal/"
-!define PRODUCT_VERSION "1.0"
-!define VERSION "00.00.01.1"
+!define PRODUCT_VERSION "2.0"
+!define VERSION "00.00.02.0"
 !define COPYRIGHT "AnkurSheel© 2013"
 !define DESCRIPTION "Application"
 !define INSTALLER_NAME "C:\Projects\Asteroids\Setup\setup.exe"
@@ -50,7 +44,7 @@ InstallDir "C:\Games\SpAsteroids"
 !define MUI_UNABORTWARNING
 
 ; Welcome page
-!define MUI_WELCOMEPAGE_TITLE "This Will Install MPong(v${PRODUCT_VERSION}) on your computer"
+!define MUI_WELCOMEPAGE_TITLE "This Will Install SpAsteroids(v${PRODUCT_VERSION}) on your computer"
 !insertmacro MUI_PAGE_WELCOME
 ; Components page
 !insertmacro MUI_PAGE_COMPONENTS
